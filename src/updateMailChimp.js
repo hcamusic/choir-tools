@@ -10,12 +10,12 @@ module.exports = async (chorusMembers) => {
 
   const chorusMemberMap = _.keyBy(
     chorusMembers,
-    (member) => member.emailAddress
+    (member) => member.Email
   );
   const chorusMemberEmails = Object.keys(chorusMemberMap);
 
   const listMembers = await mailchimp.get(`/lists/${listId}/members`, {
-    count: 100,
+    count: 1000,
   });
 
   const listMembersMap = _.keyBy(
@@ -24,17 +24,19 @@ module.exports = async (chorusMembers) => {
   );
   const listMemberEmails = Object.keys(listMembersMap);
 
+  console.log(listMemberEmails.length)
+
   const emailsToUpdate = chorusMembers.map((member) => {
     const subscriberHash = crypto
       .createHash('md5')
-      .update(member.emailAddress)
+      .update(member.Email)
       .digest('hex');
 
     return {
       method: 'put',
       path: `/lists/${listId}/members/${subscriberHash}`,
       body: {
-        email_address: member.emailAddress,
+        email_address: member.Email,
         status: 'subscribed',
         merge_fields: {
           'First Name': member.firstName,

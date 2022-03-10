@@ -14,7 +14,7 @@
     "csvjson": "^5.1.0",
     "dotenv": "^8.2.0",
     "fs-extra": "^9.0.1",
-    "harmonysite": "^1.0.0",
+    "harmonysite": "^2.0.1",
     "lodash": "^4.17.11",
     "mailchimp-api-v3": "^1.12.1"
   },
