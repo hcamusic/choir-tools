@@ -19,6 +19,7 @@ const main = async () => {
     table: 'memberships',
     n: 1000,
   });
+  const memberMap = _.keyBy(membersTable.records.member, (member) => member.id);
 
   const memberships = _.keyBy(
     membershipTable.records.membership,
@@ -30,7 +31,9 @@ const main = async () => {
       && memberships[member.id].Type === "Member"
       && memberships[member.id].Status === "Active"
       && memberships[member.id].Level === "Full"
-    )
+    ).map(member => memberMap[member.id]);
+
+  console.log(members)
 
   await updateMailChimp(members);
 };

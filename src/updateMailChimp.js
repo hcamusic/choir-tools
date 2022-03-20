@@ -39,10 +39,10 @@ module.exports = async (chorusMembers) => {
         email_address: member.Email,
         status: 'subscribed',
         merge_fields: {
-          'First Name': member.firstName,
-          'Last Name': member.lastName,
+          'First Name': member.FirstName,
+          'Last Name': member.LastName,
           'Phone Number':
-            member.cellPhone || member.homePhone || member.workPhone,
+            member.MobilePhone || member.HomePhone || member.WorkPhone,
         },
       },
     };
@@ -54,6 +54,8 @@ module.exports = async (chorusMembers) => {
       path: `/lists/${listId}/members/${listMembersMap[email].id}`,
     })
   );
+
+  console.log(emailsToUpdate);
 
   const batchActions = emailsToUpdate.concat(emailsToRemove);
 
