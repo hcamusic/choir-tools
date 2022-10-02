@@ -1,0 +1,22 @@
+name: Update Emails
+
+on:
+  schedule:
+    - cron: "30 14 * * *"
+  push:
+    branches: [main]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: yarn start
+        env:
+          HARMONYSITE_USERNAME: ${{ secrets.HARMONYSITE_USERNAME }}
+          HARMONYSITE_PASSWORD: ${{ secrets.HARMONYSITE_PASSWORD }}
+          MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
+          MAILCHIMP_LIST_ID: ${{ secrets.MAILCHIMP_LIST_ID }}

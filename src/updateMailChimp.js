@@ -24,8 +24,6 @@ module.exports = async (chorusMembers) => {
   );
   const listMemberEmails = Object.keys(listMembersMap);
 
-  console.log(listMemberEmails.length)
-
   const emailsToUpdate = chorusMembers.map((member) => {
     const subscriberHash = crypto
       .createHash('md5')
@@ -41,8 +39,6 @@ module.exports = async (chorusMembers) => {
         merge_fields: {
           'First Name': member.FirstName,
           'Last Name': member.LastName,
-          'Phone Number':
-            member.MobilePhone || member.HomePhone || member.WorkPhone,
         },
       },
     };
@@ -54,8 +50,6 @@ module.exports = async (chorusMembers) => {
       path: `/lists/${listId}/members/${listMembersMap[email].id}`,
     })
   );
-
-  console.log(emailsToUpdate);
 
   const batchActions = emailsToUpdate.concat(emailsToRemove);
 

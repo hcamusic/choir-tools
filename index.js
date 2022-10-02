@@ -33,8 +33,6 @@ const main = async () => {
       && memberships[member.id].Level === "Full"
     ).map(member => memberMap[member.id]);
 
-  console.log(members)
-
   await updateMailChimp(members);
 };
 
