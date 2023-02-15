@@ -19,14 +19,14 @@ const main = async () => {
     table: 'memberships',
     n: 1000,
   });
-  const memberMap = _.keyBy(membersTable.records.member, (member) => member.id);
+  const memberMap = _.keyBy(membersTable.records.record, (member) => member.id);
 
   const memberships = _.keyBy(
-    membershipTable.records.membership,
+    membershipTable.records.record,
     (member) => member.Member
   );
 
-  const members = membersTable.records.member
+  const members = membersTable.records.record
     .filter(member => memberships[member.id]
       && memberships[member.id].Type === "Member"
       && memberships[member.id].Status === "Active"
