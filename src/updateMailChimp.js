@@ -36,10 +36,10 @@ module.exports = async (chorusMembers) => {
       body: {
         email_address: member.Email,
         status: 'subscribed',
-        merge_fields: {
-          'First Name': member.FirstName,
-          'Last Name': member.LastName,
-        },
+        merge_fields: _.omitBy({
+          'FNAME': !_.isEmpty(member.Greeting) ? member.Greeting : member.FirstName,
+          'LNAME': member.Surname,
+        }, _.isEmpty),
       },
     };
   });
